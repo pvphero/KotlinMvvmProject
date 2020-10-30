@@ -1,6 +1,11 @@
 package com.vv.kotlin.project.net
 
+import android.util.TimeUtils
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  *
@@ -9,7 +14,7 @@ import retrofit2.Retrofit
  */
 class APIClient {
     private object Holder {
-        val INSTANCE = APIClient();
+        val INSTANCE = APIClient()
     }
 
     companion object {
@@ -19,11 +24,19 @@ class APIClient {
     //WanAndroid API实例化
     fun <T> instanceRetrofit(apiInterface: Class<T>): T {
         //请求方
-        val retrofit:Retrofit =Retrofit.Builder()
-
-                
-
+        val mOkHttpClient:OkHttpClient =OkHttpClient().newBuilder()
+            .readTimeout(1000,TimeUnit.SECONDS)
+            .connectTimeout(1000,TimeUnit.SECONDS)
+                .writeTimeout(1000,TimeUnit.SECONDS)
             .build()
+        val retrofit:Retrofit =Retrofit.Builder()
+            //okhttpCliet请求服务器
+            .client(mOkHttpClient)
         //响应方
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return retrofit.create(apiInterface)
     }
 }
