@@ -1,5 +1,7 @@
 package com.vv.kotlin.project.net
 
+import retrofit2.Retrofit
+
 /**
  *
  * @author ShenZhenWei
@@ -16,6 +18,12 @@ class APIClient {
 
     //WanAndroid API实例化
     fun <T> instanceRetrofit(apiInterface: Class<T>): T {
+        //请求方
+        val retrofit:Retrofit =Retrofit.Builder()
 
+                
+
+            .build()
+        //响应方
     }
 }
