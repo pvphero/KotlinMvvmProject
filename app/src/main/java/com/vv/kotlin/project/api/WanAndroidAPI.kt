@@ -1,5 +1,10 @@
 package com.vv.kotlin.project.api
 
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
+import java.util.*
+
 /**
  *
  * @author ShenZhenWei
@@ -11,6 +16,15 @@ interface WanAndroidAPI {
     /**
      * 登陆API
      *
-     * 
+     *
+     */
+    @POST("/user/login")
+    @FormUrlEncoded
+    fun loginAction(@Field("username") username:String,
+                    @Field("passwrod") password:String)
+    :Observable<>
+
+    /**
+     * 注册API
      */
 }
