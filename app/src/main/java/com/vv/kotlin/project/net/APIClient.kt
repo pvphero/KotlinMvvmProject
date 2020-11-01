@@ -30,6 +30,7 @@ class APIClient {
                 .writeTimeout(1000,TimeUnit.SECONDS)
             .build()
         val retrofit:Retrofit =Retrofit.Builder()
+            .baseUrl("https://www.wanandroid.com")
             //okhttpCliet请求服务器
             .client(mOkHttpClient)
         //响应方
